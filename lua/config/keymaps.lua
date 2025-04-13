@@ -13,3 +13,6 @@ vim.keymap.set("n", "<Leader><Leader>", ":", { noremap = true, desc = "Command L
 -- Horizontal and vertical split
 vim.keymap.set("n", "<Leader>bh", ":split<CR>", { noremap = true, desc = "Horizontal Split" })
 vim.keymap.set("n", "<Leader>bv", ":vsplit<CR>", { noremap = true, desc = "Vertical Split" })
+
+-- Additional escape sequence if needed
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true, desc = "Terminal ESC" })
