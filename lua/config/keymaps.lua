@@ -16,3 +16,8 @@ vim.keymap.set("n", "<Leader>bv", ":vsplit<CR>", { noremap = true, desc = "Verti
 
 -- Additional escape sequence if needed
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true, desc = "Terminal ESC" })
+
+-- Map <leader>fh to search help tags using Telescope
+vim.keymap.set("n", "<leader>fh", function()
+  require("telescope.builtin").help_tags() -- Use Telescope's help tags function
+end, { desc = "Search Help Tags (Telescope)" })
