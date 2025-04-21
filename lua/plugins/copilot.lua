@@ -29,12 +29,13 @@ return {
           auto_trigger = true,
           debounce = 75,
           keymap = {
+            -- Changed to use Ctrl instead of Meta
             accept = "<C-l>",
             accept_word = "<C-w>",
             accept_line = "<C-j>",
             next = "<C-n>",
             prev = "<C-p>",
-            dismiss = "<C-d>",
+            dismiss = "<C-h>",
           },
         },
         filetypes = {
@@ -53,7 +54,6 @@ return {
       })
     end,
   },
-
   -- Integration with nvim-cmp
   {
     "zbirenbaum/copilot-cmp",
@@ -63,7 +63,6 @@ return {
     config = function()
       -- Check if nvim-cmp is available
       local has_cmp, cmp = pcall(require, "cmp")
-
       if has_cmp then
         require("copilot_cmp").setup({
           method = "getCompletionsCycling",
@@ -71,16 +70,6 @@ return {
             label = require("copilot_cmp.format").format_label_text,
             insert_text = require("copilot_cmp.format").format_insert_text,
             preview = require("copilot_cmp.format").deindent,
-          },
-          mapping = {
-            -- Use Tab for copilot completion
-            ["<Tab>"] = cmp.mapping(function(fallback)
-              if cmp.visible() then
-                cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-              else
-                fallback()
-              end
-            end, { "i", "s" }),
           },
         })
 
