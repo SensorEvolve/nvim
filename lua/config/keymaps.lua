@@ -20,22 +20,11 @@ vim.keymap.set("n", "<Leader>bv", ":vsplit<CR>", { noremap = true, desc = "Verti
 -- Map CsvView toggle to <leader>cv
 vim.keymap.set("n", "<Leader>cv", ":CsvViewToggle<CR>", { noremap = true, desc = "Toggle CSV View" })
 
--- Map to toggle terminal
-vim.keymap.set({ "n", "x" }, "<leader>e", function()
-  local oil = require("oil")
-  local win = vim.api.nvim_get_current_win()
-  local buf = vim.api.nvim_win_get_buf(win)
-  local ft = vim.api.nvim_buf_get_option(buf, "filetype")
-  if ft == "oil" then
-    vim.cmd("close")
-  else
-    oil.open_float()
-  end
-end, { silent = true, desc = "Toggle Oil" })
-
--- Toggle Markview
-vim.keymap.set("n", "<leader>mt", ":Markview toggle<CR>", { desc = "Toggle Markview" })
-
 -- Typst keymaps
 vim.keymap.set("n", "<leader>tw", ":TypstWatch<CR>", { desc = "Typst Watch" })
-vim.keymap.set("n", "<leader>tc", ":make<CR>", { desc = "Typst Compile" })
+vim.keymap.set(
+  "n",
+  "<leader>tl",
+  "<cmd>!typst watch % --features html --format html --open<CR>",
+  { buffer = 0, desc = "Typst HTML Preview" }
+)

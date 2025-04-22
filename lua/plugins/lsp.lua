@@ -241,6 +241,7 @@ return {
             exportPdf = "onSave", -- or "onType" for continuous compilation
             serverPath = nil, -- Let Mason handle this
           },
+          cmd = { "typst-lsp" },
         },
 
         -- JSON with schema support
@@ -1007,7 +1008,6 @@ return {
         "rust_analyzer",
         "pyright",
         "pylsp",
-        "tsserver",
         "html",
         "cssls",
         "emmet_language_server",

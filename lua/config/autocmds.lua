@@ -171,7 +171,6 @@ vim.api.nvim_create_autocmd("FileType", {
 
     -- Add keymaps
     vim.keymap.set("n", "<leader>tw", "<cmd>TypstWatch<CR>", { buffer = 0, desc = "Typst Watch" })
-    vim.keymap.set("n", "<leader>tp", "<cmd>TypstPreview<CR>", { buffer = 0, desc = "Typst Preview" })
   end,
 })
 
