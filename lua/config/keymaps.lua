@@ -28,3 +28,7 @@ vim.keymap.set(
   "<cmd>!typst watch % --features html --format html --open<CR>",
   { buffer = 0, desc = "Typst HTML Preview" }
 )
+
+-- Move lines up and down in normal mode
+vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { noremap = true, desc = "Move line down" })
+vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { noremap = true, desc = "Move line up" })

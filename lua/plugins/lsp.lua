@@ -888,6 +888,12 @@ return {
           },
         },
       },
+      -- Update the diagnostic settings to use the new format
+      diagnostic = {
+        -- Use the new diagnostic API instead of lsp_diag_virtual_text and lsp_diag_hdlr
+        virtual_text = true, -- This replaces lsp_diag_virtual_text
+        hdlr = true, -- This replaces lsp_diag_hdlr
+      },
       lsp_on_attach = function(client, bufnr)
         -- Set up buffer-local keymaps for Go
         local function map(mode, lhs, rhs, desc)
@@ -925,18 +931,18 @@ return {
   },
 
   -- Add Lua-specific configurations and tools
-  {
-    "folke/neodev.nvim",
-    opts = {
-      library = {
-        plugins = { "nvim-dap-ui" },
-        types = true,
-      },
-      setup_jsonls = true,
-      lspconfig = true,
-      pathStrict = true,
-    },
-  },
+  -- {
+  --   "folke/neodev.nvim",
+  --   opts = {
+  --     library = {
+  --       plugins = { "nvim-dap-ui" },
+  --       types = true,
+  --     },
+  --     setup_jsonls = true,
+  --     lspconfig = true,
+  --     pathStrict = true,
+  --   },
+  -- },
 
   -- Nvim-specific Lua development
   {

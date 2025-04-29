@@ -48,11 +48,14 @@ return {
             if cmp.visible() then
               cmp.confirm({ select = true })
             else
-              -- If cmp isn't visible, pass through to copilot
-              fallback()
+              local copilot = require("copilot.suggestion")
+              if copilot.is_visible() then
+                copilot.accept()
+              else
+                fallback()
+              end
             end
           end, { "i", "s" }),
-
           -- Add C-n mapping for next item
           ["<C-n>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
