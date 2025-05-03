@@ -1,6 +1,10 @@
+-- ~/.config/nvim/lua/config/lazy.lua (or wherever you have this file)
+
+-- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  -- Use stable branch for stability
   local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
   if vim.v.shell_error ~= 0 then
     vim.api.nvim_echo({
@@ -14,40 +18,62 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Setup lazy.nvim
 require("lazy").setup({
+  -- The 'spec' determines where lazy.nvim looks for plugin specifications.
   spec = {
-    -- add LazyVim and import its plugins
+    -- 1. Load LazyVim itself and import its default plugin specifications.
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    -- import/override with your plugins
+
+    -- 2. Dynamically import all files found in lua/plugins/ and its subdirectories.
+    --    This automatically loads any configurations you place there (e.g., theme, lsp, languages).
     { import = "plugins" },
+
+    -- NOTE: All the previous lines like { import = "plugins.lsp.core" },
+    -- { import = "plugins.lang.lua" }, { import = "plugins.theme" } etc.
+    -- are now covered by the single { import = "plugins" } line above.
   },
+
+  -- Default options for plugins
   defaults = {
-    -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
-    -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.
+    -- Should plugins be lazy-loaded? Set to true if startup time is an issue.
     lazy = false,
-    -- It's recommended to leave version=false for now, since a lot the plugin that support versioning,
-    -- have outdated releases, which may break your Neovim install.
-    version = false, -- always use the latest git commit
-    -- version = "*", -- try installing the latest stable version for plugins that support semver
+    -- Use latest git commits (recommended over version = "*" or specific versions)
+    version = false,
   },
-  install = { colorscheme = { "tokyonight", "habamax" } },
+
+  -- Configure installation behavior
+  install = {
+    -- Ensure these colorschemes are installed (doesn't apply them, just installs)
+    -- You might add "vague" here too if your theme plugin needs explicit installation handling,
+    -- though usually just defining it in lua/plugins/ is enough.
+    colorscheme = { "tokyonight", "habamax" },
+  },
+
+  -- Configure plugin update checking
   checker = {
-    enabled = true, -- check for plugin updates periodically
-    notify = false, -- notify on update
-  }, -- automatically check for plugin updates
+    enabled = true, -- Periodically check for updates
+    notify = false, -- Don't automatically notify, use :Lazy update manually
+  },
+
+  -- Performance tuning options
   performance = {
     rtp = {
-      -- disable some rtp plugins
+      -- Disable certain standard Vim plugins for potentially faster startup
       disabled_plugins = {
         "gzip",
-        -- "matchit",
-        -- "matchparen",
-        -- "netrwPlugin",
         "tarPlugin",
         "tohtml",
         "tutor",
         "zipPlugin",
+        -- "netrwPlugin", -- Keep netrw unless you use nvim-tree or similar
       },
     },
   },
 })
+
+-- Optional: You might still want the explicit colorscheme command here
+-- as a final guarantee, although the { import = "plugins" } should load
+-- your theme config which sets opts.colorscheme = "vague" for LazyVim.
+-- If the theme doesn't apply correctly with just the above, uncomment this:
+-- vim.cmd.colorscheme("vague")
