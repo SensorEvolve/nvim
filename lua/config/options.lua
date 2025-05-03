@@ -27,3 +27,5 @@ vim.opt.wrap = false
 -- Performance
 vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
+
+Lsp = vim.lsp

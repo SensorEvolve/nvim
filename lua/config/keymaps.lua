@@ -14,9 +14,6 @@ vim.keymap.set("n", "<Leader><Leader>", ":", { noremap = true, desc = "Command L
 vim.keymap.set("n", "<Leader>bh", ":split<CR>", { noremap = true, desc = "Horizontal Split" })
 vim.keymap.set("n", "<Leader>bv", ":vsplit<CR>", { noremap = true, desc = "Vertical Split" })
 
--- -- Additional escape sequence if needed
--- vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true, desc = "Terminal ESC" })
-
 -- Map CsvView toggle to <leader>cv
 vim.keymap.set("n", "<Leader>cv", ":CsvViewToggle<CR>", { noremap = true, desc = "Toggle CSV View" })
 
@@ -29,6 +26,8 @@ vim.keymap.set(
   { buffer = 0, desc = "Typst HTML Preview" }
 )
 
--- Move lines up and down in normal mode
-vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { noremap = true, desc = "Move line down" })
-vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { noremap = true, desc = "Move line up" })
+-- Move lines up and down
+vim.keymap.set("n", "<M-j>", ":m .+1<CR>==") -- move line up(n)
+vim.keymap.set("n", "<M-k>", ":m .-2<CR>==") -- move line down(n)
+vim.keymap.set("v", "<M-j>", ":m '>+1<CR>gv=gv") -- move line up(v)
+vim.keymap.set("v", "<M-k>", ":m '<-2<CR>gv=gv") -- move line down(v)

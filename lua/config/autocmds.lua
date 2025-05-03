@@ -201,25 +201,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Markdown settings
-vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("markdown_settings"),
-  pattern = { "markdown" },
-  callback = function()
-    -- Enable markview
-    vim.keymap.set("n", "<leader>mt", "<cmd>Markview toggle<CR>", { buffer = 0, desc = "Toggle Markview" })
-  end,
-})
-
--- CSV settings
-vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("csv_settings"),
-  pattern = { "csv" },
-  callback = function()
-    vim.keymap.set("n", "<leader>cv", "<cmd>CsvViewToggle<CR>", { buffer = 0, desc = "Toggle CSV View" })
-  end,
-})
-
 -- Terminal settings
 vim.api.nvim_create_autocmd("TermOpen", {
   group = augroup("terminal_settings"),

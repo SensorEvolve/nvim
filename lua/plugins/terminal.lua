@@ -69,19 +69,5 @@ return {
       vertical:toggle()
     end
     vim.keymap.set("n", "<leader>tv", "<cmd>lua _VERTICAL_TOGGLE()<CR>", { desc = "Vertical Terminal" })
-
-    -- Lazygit terminal
-    local lazygit = Terminal:new({
-      cmd = "lazygit",
-      dir = "git_dir",
-      direction = "float",
-      float_opts = {
-        border = "double",
-      },
-    })
-    function _LAZYGIT_TOGGLE()
-      lazygit:toggle()
-    end
-    vim.keymap.set("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", { desc = "Lazygit" })
   end,
 }

@@ -1,5 +1,6 @@
--- yazi.lua with left alignment and improved exit handling
--- This ensures you can only exit Yazi using the 'q' key
+-- optimized-yazi.lua
+-- Improved Yazi plugin configuration with performance optimizations and j-key fix
+-- Place this in your ~/.config/nvim/lua/plugins/ directory
 
 return {
   "nvim-lua/plenary.nvim", -- Dependency for creating the floating terminal
@@ -29,7 +30,7 @@ return {
     end
 
     -- Fix j key delay issues in terminal buffers
-    local function setup_terminal_keymaps(buf)
+    local function fix_terminal_j_key(buf)
       -- Create a function to immediately send the j key without delay
       local send_j = function()
         vim.api.nvim_chan_send(vim.bo[buf].channel, "j")
@@ -41,29 +42,6 @@ return {
         noremap = true,
         nowait = true,
         callback = send_j,
-      })
-
-      -- Prevent Escape key from exiting terminal mode
-      -- This ensures you must use q in Yazi to exit properly
-      vim.api.nvim_buf_set_keymap(buf, "t", "<Esc>", "", {
-        noremap = true,
-        callback = function()
-          -- Send Escape to Yazi instead of exiting terminal mode
-          vim.api.nvim_chan_send(vim.bo[buf].channel, "\027")
-          return ""
-        end,
-      })
-
-      -- Block Ctrl-\ Ctrl-n (the other way to exit terminal mode)
-      vim.api.nvim_buf_set_keymap(buf, "t", "<C-\\>", "", { noremap = true })
-
-      -- Handle Ctrl-c as a regular terminal Ctrl-c, not a Neovim command
-      vim.api.nvim_buf_set_keymap(buf, "t", "<C-c>", "", {
-        noremap = true,
-        callback = function()
-          vim.api.nvim_chan_send(vim.bo[buf].channel, "\003")
-          return ""
-        end,
       })
     end
 
@@ -101,9 +79,9 @@ return {
             vim.opt_local.timeout = false
             vim.opt_local.ttimeout = false
 
-            -- Apply key fixes after a slight delay to ensure terminal is initialized
+            -- Apply j key fix after a slight delay to ensure terminal is initialized
             vim.defer_fn(function()
-              setup_terminal_keymaps(buf)
+              fix_terminal_j_key(buf)
             end, 100)
           end,
         })
@@ -144,11 +122,11 @@ return {
         local win_width = math.floor(ui.width * width)
         local win_height = math.floor(ui.height * height)
 
-        -- Calculate position (left-aligned at 0)
-        local row = math.floor((ui.height - win_height) / 2) -- Still center vertically
-        local col = 0 -- Left-aligned (was centered before)
+        -- Calculate position (centered)
+        local row = math.floor((ui.height - win_height) / 2)
+        local col = math.floor((ui.width - win_width) / 2)
 
-        -- Window options - simplified and left-aligned
+        -- Window options - simplified
         local win_opts = {
           relative = "editor",
           width = win_width,
@@ -175,9 +153,9 @@ return {
             vim.opt_local.timeout = false
             vim.opt_local.ttimeout = false
 
-            -- Apply key fixes after a slight delay to ensure terminal is initialized
+            -- Apply j key fix after a slight delay to ensure terminal is initialized
             vim.defer_fn(function()
-              setup_terminal_keymaps(buf)
+              fix_terminal_j_key(buf)
             end, 100)
           end,
         })
@@ -281,5 +259,28 @@ return {
     vim.keymap.set("n", "<leader>ys", function()
       open_yazi("file", { use_split = true })
     end, { desc = "Open yazi in split window (better performance)" })
+
+    -- Global fix for terminal key timeout issues
+    vim.api.nvim_create_autocmd("TermOpen", {
+      pattern = "*",
+      callback = function()
+        -- Apply terminal-specific settings
+        vim.opt_local.timeout = false
+        vim.opt_local.ttimeout = false
+        vim.opt_local.timeoutlen = 0
+        vim.opt_local.ttimeoutlen = 0
+
+        -- Disable cursor line/column highlighting
+        vim.opt_local.cursorline = false
+        vim.opt_local.cursorcolumn = false
+
+        -- Disable line numbers
+        vim.opt_local.number = false
+        vim.opt_local.relativenumber = false
+      end,
+    })
+
+    -- Add a global config option to improve key responsiveness
+    vim.g.terminal_responsive = true
   end,
 }

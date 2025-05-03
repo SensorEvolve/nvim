@@ -869,6 +869,7 @@ return {
   },
 
   -- Go language support
+  -- Go language support
   {
     "ray-x/go.nvim",
     dependencies = {
@@ -899,7 +900,6 @@ return {
         local function map(mode, lhs, rhs, desc)
           vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
         end
-
         map("n", "<leader>gt", "<cmd>GoTest<CR>", "Run Go Tests")
         map("n", "<leader>gta", "<cmd>GoTestAll<CR>", "Run All Go Tests")
         map("n", "<leader>gi", "<cmd>GoImport<CR>", "Go Import")
