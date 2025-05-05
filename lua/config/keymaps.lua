@@ -27,7 +27,5 @@ vim.keymap.set(
 )
 
 -- Move lines up and down
-vim.keymap.set("n", "<M-j>", ":m .+1<CR>==") -- move line up(n)
-vim.keymap.set("n", "<M-k>", ":m .-2<CR>==") -- move line down(n)
-vim.keymap.set("v", "<M-j>", ":m '>+1<CR>gv=gv") -- move line up(v)
-vim.keymap.set("v", "<M-k>", ":m '<-2<CR>gv=gv") -- move line down(v)
+vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv") -- move line up(v)
+vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv") -- move line down(v)
