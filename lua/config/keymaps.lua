@@ -25,7 +25,12 @@ vim.keymap.set(
   "<cmd>!typst watch % --features html --format html --open<CR>",
   { buffer = 0, desc = "Typst HTML Preview" }
 )
-
 -- Move lines up and down
 vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv") -- move line up(v)
 vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv") -- move line down(v)
+
+vim.keymap.set("n", "<leader>mt", ":MarkdownPreviewToggle<CR>", {
+  silent = true,
+  noremap = true,
+  desc = "Toggle Markdown preview on/off",
+})

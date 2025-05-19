@@ -5,8 +5,8 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
+      "mason-org/mason.nvim", -- UPDATED
+      "mason-org/mason-lspconfig.nvim", -- UPDATED
     },
     opts = {
       -- Global options for nvim-lspconfig
@@ -44,7 +44,7 @@ return {
 
   -- Mason setup (Manages installations)
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim", -- UPDATED
     cmd = "Mason",
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
@@ -113,8 +113,8 @@ return {
 
   -- Bridge Mason and nvim-lspconfig (Handles LSP server setup)
   {
-    "williamboman/mason-lspconfig.nvim",
-    dependencies = { "williamboman/mason.nvim" }, -- Ensure Mason runs first
+    "mason-org/mason-lspconfig.nvim", -- UPDATED
+    dependencies = { "mason-org/mason.nvim" }, -- UPDATED: Ensure Mason runs first
     opts = {
       -- *** REMOVED ensure_installed list entirely ***
       -- We will rely on automatic_installation to set up servers
@@ -148,9 +148,9 @@ return {
       { "K", "<cmd>Lspsaga hover_doc<CR>", desc = "Hover Documentation (Lspsaga)" },
       { "<leader>ca", "<cmd>Lspsaga code_action<CR>", desc = "Code Actions (Lspsaga)" },
       { "<leader>rn", "<cmd>Lspsaga rename<CR>", desc = "Rename (Lspsaga)" },
-      { "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", desc = "Line Diagnostics (Lspsaga)" },
-      { "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", desc = "Previous Diagnostic (Lspsaga)" },
-      { "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", desc = "Next Diagnostic (Lspsaga)" },
+      { "<leader>cld", "<cmd>Lspsaga show_line_diagnostics<CR>", desc = "Line Diagnostics (Lspsaga)" },
+      { "<leader>cp", "<cmd>Lspsaga diagnostic_jump_prev<CR>", desc = "Previous Diagnostic (Lspsaga)" },
+      { "<leader>cn", "<cmd>Lspsaga diagnostic_jump_next<CR>", desc = "Next Diagnostic (Lspsaga)" },
     },
   },
 }

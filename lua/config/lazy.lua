@@ -47,7 +47,7 @@ require("lazy").setup({
     -- Ensure these colorschemes are installed (doesn't apply them, just installs)
     -- You might add "vague" here too if your theme plugin needs explicit installation handling,
     -- though usually just defining it in lua/plugins/ is enough.
-    colorscheme = { "tokyonight", "habamax" },
+    colorscheme = { cyberdream },
   },
 
   -- Configure plugin update checking

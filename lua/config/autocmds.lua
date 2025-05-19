@@ -200,7 +200,6 @@ vim.api.nvim_create_autocmd("FileType", {
     )
   end,
 })
-
 -- Terminal settings
 vim.api.nvim_create_autocmd("TermOpen", {
   group = augroup("terminal_settings"),

@@ -29,3 +29,10 @@ vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
 
 Lsp = vim.lsp
+
+-- Dictionary
+vim.opt.spell = true
+vim.opt.spelllang = { "en_us" }
+
+--vim.g.loaded_netrw = 1
+--vim.g.loaded_netrwPlugin = 1
