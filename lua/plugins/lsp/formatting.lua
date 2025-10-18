@@ -41,12 +41,11 @@ return {
         gofmt = {},
         typstfmt = {},
       },
-      -- Configuration for format-on-save behavior can be set here
-      -- instead of autocmds.lua if preferred.
-      -- format_on_save = {
-      --   timeout_ms = 1000,
-      --   lsp_fallback = true, -- Try LSP formatting if conform fails
-      -- },
+      -- Enable format-on-save (moved from autocmds.lua for better performance)
+      format_on_save = {
+        timeout_ms = 1000,
+        lsp_fallback = true, -- Try LSP formatting if conform fails
+      },
     },
   },
 

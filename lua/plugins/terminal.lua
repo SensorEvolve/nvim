@@ -1,6 +1,12 @@
 return {
   "akinsho/toggleterm.nvim",
   version = "*",
+  keys = {
+    { "<leader>tf", desc = "Float Terminal" },
+    { "<leader>th", desc = "Horizontal Terminal" },
+    { "<leader>tv", desc = "Vertical Terminal" },
+    { "<c-\\>", desc = "Toggle Terminal" },
+  },
   config = function()
     require("toggleterm").setup({
       size = function(term)
@@ -54,20 +60,22 @@ return {
     function _FLOAT_TOGGLE()
       float:toggle()
     end
-    vim.keymap.set("n", "<leader>tf", "<cmd>lua _FLOAT_TOGGLE()<CR>", { desc = "Float Terminal" })
 
     -- Horizontal terminal
     local horizontal = Terminal:new({ direction = "horizontal" })
     function _HORIZONTAL_TOGGLE()
       horizontal:toggle()
     end
-    vim.keymap.set("n", "<leader>th", "<cmd>lua _HORIZONTAL_TOGGLE()<CR>", { desc = "Horizontal Terminal" })
 
     -- Vertical terminal
     local vertical = Terminal:new({ direction = "vertical" })
     function _VERTICAL_TOGGLE()
       vertical:toggle()
     end
+
+    -- Set up keymaps after plugin is loaded
+    vim.keymap.set("n", "<leader>tf", "<cmd>lua _FLOAT_TOGGLE()<CR>", { desc = "Float Terminal" })
+    vim.keymap.set("n", "<leader>th", "<cmd>lua _HORIZONTAL_TOGGLE()<CR>", { desc = "Horizontal Terminal" })
     vim.keymap.set("n", "<leader>tv", "<cmd>lua _VERTICAL_TOGGLE()<CR>", { desc = "Vertical Terminal" })
   end,
 }

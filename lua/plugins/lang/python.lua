@@ -22,40 +22,8 @@ return {
           -- Optional: Define root directory patterns if needed
           -- root_dir = lspconfig.util.root_pattern("pyproject.toml", "setup.py", "requirements.txt", ".git")
         },
-        -- Pylsp: Offers broader plugins (linting, formatting, refactoring via rope)
-        -- Consider disabling if pyright + conform/none-ls (ruff) is sufficient
-        pylsp = {
-          settings = {
-            pylsp = {
-              plugins = {
-                -- Linters (Ruff via none-ls is generally preferred)
-                -- pycodestyle = { enabled = false },
-                -- pyflakes = { enabled = false },
-                -- pylint = { enabled = false },
-                ruff = { enabled = true }, -- Enable if using pylsp's ruff integration *instead* of none-ls
-
-                -- Type checking (handled by pyright)
-                mypy = { enabled = false },
-
-                -- Formatters (handled by conform.nvim)
-                black = { enabled = false },
-                isort = { enabled = false },
-                autopep8 = { enabled = false },
-                yapf = { enabled = false },
-
-                -- Code Intelligence / Refactoring
-                jedi_completion = { enabled = true, fuzzy = true },
-                jedi_definition = { enabled = true },
-                jedi_hover = { enabled = true },
-                jedi_references = { enabled = true },
-                jedi_signature_help = { enabled = true },
-                jedi_symbols = { enabled = true, all_scopes = true },
-                rope = { enabled = true }, -- Keep if Rope refactoring is desired
-                rope_autoimport = { enabled = true },
-              },
-            },
-          },
-        },
+        -- Pylsp: DISABLED - pyright is sufficient and faster
+        -- pylsp = { },
       },
     },
   },

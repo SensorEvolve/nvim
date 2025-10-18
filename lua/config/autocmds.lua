@@ -103,27 +103,8 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Auto-format on save for specific filetypes
-vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("format_on_save"),
-  pattern = { "lua", "python", "rust", "typescript", "typescriptreact", "javascript", "javascriptreact", "go" },
-  callback = function()
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = augroup("format_on_save_" .. vim.bo.filetype),
-      buffer = 0,
-      callback = function()
-        -- Check if conform.nvim is available
-        local ok, conform = pcall(require, "conform")
-        if ok then
-          conform.format({ bufnr = 0 })
-        else
-          -- Try using LSP formatting as fallback
-          vim.lsp.buf.format({ async = false, timeout_ms = 2000 })
-        end
-      end,
-    })
-  end,
-})
+-- Auto-format on save is now handled by conform.nvim's format_on_save option
+-- See lua/plugins/lsp/formatting.lua for configuration
 
 -- Automatically set indent settings based on filetype
 vim.api.nvim_create_autocmd("FileType", {
@@ -137,42 +118,17 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Special Rust settings
+-- Special Rust settings (removed nested autocmd - formatting handled by main format_on_save)
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("rust_settings"),
   pattern = { "rust" },
   callback = function()
-    -- Auto-run rustfmt on save
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = augroup("rust_format"),
-      buffer = 0,
-      callback = function()
-        -- Check if rust-tools is available
-        local rt_ok, _ = pcall(require, "rust-tools")
-        if rt_ok then
-          vim.cmd("RustFmt")
-        else
-          -- Fallback to LSP formatting
-          vim.lsp.buf.format({ async = false, timeout_ms = 2000 })
-        end
-      end,
-    })
+    -- Rust-specific settings can go here if needed
+    -- Formatting is handled by the main format_on_save autocmd above
   end,
 })
 
--- Typst settings
-vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("typst_settings"),
-  pattern = { "typst" },
-  callback = function()
-    -- Enable previewing
-    vim.opt_local.wrap = true
-    vim.opt_local.spell = true
-
-    -- Add keymaps
-    vim.keymap.set("n", "<leader>tw", "<cmd>TypstWatch<CR>", { buffer = 0, desc = "Typst Watch" })
-  end,
-})
+-- Typst settings moved to lua/plugins/lang/typst.lua for better organization
 
 -- Python settings
 vim.api.nvim_create_autocmd("FileType", {

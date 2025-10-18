@@ -36,8 +36,8 @@ require("lazy").setup({
 
   -- Default options for plugins
   defaults = {
-    -- Should plugins be lazy-loaded? Set to true if startup time is an issue.
-    lazy = false,
+    -- Should plugins be lazy-loaded? Set to true for faster startup.
+    lazy = true,
     -- Use latest git commits (recommended over version = "*" or specific versions)
     version = false,
   },
@@ -45,9 +45,7 @@ require("lazy").setup({
   -- Configure installation behavior
   install = {
     -- Ensure these colorschemes are installed (doesn't apply them, just installs)
-    -- You might add "vague" here too if your theme plugin needs explicit installation handling,
-    -- though usually just defining it in lua/plugins/ is enough.
-    colorscheme = { cyberdream },
+    colorscheme = { "vague" },
   },
 
   -- Configure plugin update checking

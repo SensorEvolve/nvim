@@ -28,11 +28,19 @@ vim.opt.wrap = false
 vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
 
-Lsp = vim.lsp
-
--- Dictionary
-vim.opt.spell = true
+-- Dictionary (disabled globally for performance, enabled per-filetype in autocmds.lua)
+vim.opt.spell = false
 vim.opt.spelllang = { "en_us" }
 
 --vim.g.loaded_netrw = 1
 --vim.g.loaded_netrwPlugin = 1
+
+-- Terminal
+if vim.fn.executable("pwsh") == 1 then
+  vim.o.shell = "pwsh"
+  vim.o.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command "
+  vim.o.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
+  vim.o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+  vim.o.shellquote = ""
+  vim.o.shellxquote = ""
+end

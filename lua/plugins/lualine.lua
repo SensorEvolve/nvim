@@ -68,7 +68,7 @@ return {
     -- Setup lualine configuration
     lualine.setup({
       options = {
-        theme = "cyberdream",
+        theme = "vague",
         component_separators = { left = "", right = "" },
         section_separators = { left = "", right = "" },
         disabled_filetypes = {

@@ -5,8 +5,8 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      "mason-org/mason.nvim", -- UPDATED
-      "mason-org/mason-lspconfig.nvim", -- UPDATED
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
     },
     opts = {
       -- Global options for nvim-lspconfig
@@ -44,7 +44,7 @@ return {
 
   -- Mason setup (Manages installations)
   {
-    "mason-org/mason.nvim", -- UPDATED
+    "williamboman/mason.nvim",
     cmd = "Mason",
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
@@ -59,8 +59,7 @@ return {
         "rust-analyzer",
         "codelldb",
         "taplo",
-        -- Python
-        "python-lsp-server",
+        -- Python (pylsp removed, using only pyright)
         "pyright",
         "ruff",
         "black",
@@ -113,8 +112,8 @@ return {
 
   -- Bridge Mason and nvim-lspconfig (Handles LSP server setup)
   {
-    "mason-org/mason-lspconfig.nvim", -- UPDATED
-    dependencies = { "mason-org/mason.nvim" }, -- UPDATED: Ensure Mason runs first
+    "williamboman/mason-lspconfig.nvim",
+    dependencies = { "williamboman/mason.nvim" },
     opts = {
       -- *** REMOVED ensure_installed list entirely ***
       -- We will rely on automatic_installation to set up servers
