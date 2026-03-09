@@ -17,7 +17,7 @@ vim.keymap.set("n", "<Leader>bv", ":vsplit<CR>", { noremap = true, desc = "Verti
 -- Map CsvView toggle to <leader>cv
 vim.keymap.set("n", "<Leader>cv", ":CsvViewToggle<CR>", { noremap = true, desc = "Toggle CSV View" })
 
--- Typst keymaps (buffer-local, only work in .typ files)
+-- Typst keymaps (buffer-local, registered at startup so FileType event is never missed)
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "typst",
   callback = function(event)
@@ -29,7 +29,7 @@ vim.api.nvim_create_autocmd("FileType", {
         on_exit = function(_, exit_code)
           if exit_code == 0 then
             vim.notify("Typst compiled successfully", vim.log.levels.INFO)
-            vim.fn.jobstart({ "cmd.exe", "/c", "start", '""', pdf }, { detach = true })
+            vim.fn.jobstart({ "open", pdf }, { detach = true })
           else
             vim.notify("Typst compilation failed", vim.log.levels.ERROR)
           end
@@ -38,10 +38,11 @@ vim.api.nvim_create_autocmd("FileType", {
     end, { buffer = bufnr, desc = "Compile & Open Typst PDF", noremap = true })
 
     vim.keymap.set("n", "<leader>tw", function()
-      local file = vim.fn.expand("%:p")
-      vim.notify("Starting Typst watch...", vim.log.levels.INFO)
-      vim.fn.jobstart({ "typst", "watch", file, "--open" }, { detach = true })
-    end, { buffer = bufnr, desc = "Start Typst Watch", noremap = true })
+      vim.lsp.buf.execute_command({
+        command = "tinymist.startDefaultPreview",
+        arguments = { vim.api.nvim_buf_get_name(0) },
+      })
+    end, { buffer = bufnr, desc = "Typst Live Preview (tinymist)", noremap = true })
   end,
 })
 
@@ -49,28 +50,3 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv", { noremap = true, desc = "Move line down" })
 vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv", { noremap = true, desc = "Move line up" })
 
--- Markdown preview keymaps (buffer-local, only works in .md files)
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "markdown",
-  callback = function(event)
-    local bufnr = event.buf
-    vim.keymap.set("n", "<leader>mt", "<cmd>MarkdownPreviewToggle<CR>", {
-      buffer = bufnr,
-      desc = "Toggle Markdown Preview",
-      noremap = true,
-      silent = true,
-    })
-    vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreview<CR>", {
-      buffer = bufnr,
-      desc = "Start Markdown Preview",
-      noremap = true,
-      silent = true,
-    })
-    vim.keymap.set("n", "<leader>ms", "<cmd>MarkdownPreviewStop<CR>", {
-      buffer = bufnr,
-      desc = "Stop Markdown Preview",
-      noremap = true,
-      silent = true,
-    })
-  end,
-})
