@@ -1,11 +1,5 @@
 return {
   {
-    "sbdchd/neoformat",
-    config = function()
-      vim.keymap.set("n", "<leader>mf", ":Neoformat<CR>", { desc = "Format with Neoformat" })
-    end,
-  },
-  {
     "ixru/nvim-markdown", -- Primarily for concealing markdown markers in buffer
     ft = { "markdown" },
     -- No config needed here if you're just using its default conceal features.
@@ -32,7 +26,7 @@ return {
       vim.g.mkdp_command_for_global = 0
       vim.g.mkdp_open_to_the_world = 0
       vim.g.mkdp_open_ip = ""
-      vim.g.mkdp_browser = "chrome" -- Force Chrome browser
+      vim.g.mkdp_browser = "" -- Use system default browser
       vim.g.mkdp_echo_preview_url = 1
       vim.g.mkdp_browserfunc = ""
       vim.g.mkdp_preview_options = {

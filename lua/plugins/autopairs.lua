@@ -2,8 +2,6 @@
 return {
   "windwp/nvim-autopairs",
   event = "InsertEnter",
-  -- Make sure autopairs loads AFTER nvim-cmp
-  after = "nvim-cmp",
   config = function()
     local autopairs = require("nvim-autopairs")
 
@@ -26,11 +24,5 @@ return {
       },
     })
 
-    -- If cmp is already loaded, set up the integration
-    local ok, cmp = pcall(require, "cmp")
-    if ok then
-      local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-    end
   end,
 }

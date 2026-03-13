@@ -4,7 +4,7 @@ return {
   {
     "Exafunction/codeium.vim",
     -- Or "Exafunction/windsurf.vim" if preferred by their latest docs for lazy.nvim
-    event = "BufEnter",
+    event = "InsertEnter",
     config = function()
       -- To disable all default Codeium keybindings:
       -- vim.g.codeium_disable_bindings = 1

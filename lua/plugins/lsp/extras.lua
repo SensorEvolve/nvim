@@ -37,7 +37,7 @@ return {
   -- Schemastore integration for JSON/YAML schemas
   {
     "b0o/schemastore.nvim",
-    -- lazy = true, -- Can be lazy-loaded, config runs on load
+    lazy = true,
     config = function()
       -- Now that schemastore.nvim is loaded, 'schemastore' module is available
       local schemastore = require("schemastore")

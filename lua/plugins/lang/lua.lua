@@ -40,10 +40,6 @@ return {
         -- See https://github.com/folke/lazydev.nvim#-library
       },
     },
-    dependencies = {
-      -- Provides types for Neovim runtime APIs
-      "folke/neodev.nvim",
-    },
   },
 
   -- Optional: Add setup for stylua / luacheck here if not handled globally

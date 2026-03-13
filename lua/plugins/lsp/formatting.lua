@@ -37,7 +37,7 @@ return {
         prettier = { prepend_args = { "--print-width", "100", "--tab-width", "2" } },
         black = { prepend_args = { "--line-length", "88" } },
         isort = {},
-        goimports = { prepend_args = { "-local", "your_go_module_prefix" } }, -- Replace if needed
+        goimports = {},
         gofmt = {},
         typstfmt = {},
       },
